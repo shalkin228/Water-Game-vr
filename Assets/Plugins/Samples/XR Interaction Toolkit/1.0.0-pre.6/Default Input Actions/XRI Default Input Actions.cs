@@ -363,7 +363,7 @@ public class @XRIDefaultInputActions : IInputActionCollection, IDisposable
                     ""path"": ""<XRController>{LeftHand}/Primary2DAxis"",
                     ""interactions"": """",
                     ""processors"": ""StickDeadzone"",
-                    ""groups"": ""Continuous Move"",
+                    ""groups"": ""Generic XR Controller"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
