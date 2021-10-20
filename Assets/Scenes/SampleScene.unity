@@ -185,7 +185,7 @@ MonoBehaviour:
   _simSettingsClipSurface: {fileID: 11400000, guid: ab41fdd5f01fe924c9bc1ce08de6c80f, type: 2}
   _defaultClippingState: 1
   _showOceanProxyPlane: 0
-  _editModeFPS: 30.6
+  _editModeFPS: 0
   _followSceneCamera: 0
   _forceBatchMode: 0
   _forceNoGPU: 0
@@ -2143,8 +2143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06837c16f5d38c41802b440b199eea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftHandMoveAction: {fileID: 622300816}
-  _rightHandMoveAction: {fileID: 0}
+  _leftHand: {fileID: 622300816}
+  _rightHand: {fileID: 1680220920}
+  _speedDelitel: 20
 --- !u!143 &1361350141
 CharacterController:
   m_ObjectHideFlags: 0
