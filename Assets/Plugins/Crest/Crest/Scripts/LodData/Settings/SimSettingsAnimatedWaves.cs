@@ -48,7 +48,7 @@ namespace Crest
         public bool PingPongCombinePass => _pingPongCombinePass;
 
         [Tooltip("The render texture format to use for the wave simulation. It should only be changed if you need more precision. See the documentation for information.")]
-        public GraphicsFormat _renderTextureGraphicsFormat = GraphicsFormat.R16G16B16A16_SFloat;
+        public GraphicsFormat _renderTextureGraphicsFormat = GraphicsFormat.R32G32B32A32_SFloat;
 
         public override void AddToSettingsHash(ref int settingsHash)
         {

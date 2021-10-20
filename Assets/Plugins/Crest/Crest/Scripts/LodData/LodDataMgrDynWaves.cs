@@ -18,7 +18,7 @@ namespace Crest
         protected override int krnl_ShaderSim { get { return _shader.FindKernel(ShaderSim); } }
 
         public override string SimName { get { return "DynamicWaves"; } }
-        protected override GraphicsFormat RequestedTextureFormat => GraphicsFormat.R16G16_SFloat;
+        protected override GraphicsFormat RequestedTextureFormat => GraphicsFormat.R32G32B32A32_SFloat;
         static Texture2DArray s_nullTexture => TextureArrayHelpers.BlackTextureArray;
         protected override Texture2DArray NullTexture => s_nullTexture;
 

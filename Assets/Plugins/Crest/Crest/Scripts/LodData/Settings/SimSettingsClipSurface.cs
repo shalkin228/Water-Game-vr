@@ -28,7 +28,7 @@ namespace Crest
 
         // The clip values only really need 8bits (unless using signed distance).
         [Tooltip("The render texture format to use for the clip surface simulation. It should only be changed if you need more precision. See the documentation for information.")]
-        public GraphicsFormat _renderTextureGraphicsFormat = GraphicsFormat.R8_UNorm;
+        public GraphicsFormat _renderTextureGraphicsFormat = GraphicsFormat.R32G32B32A32_SFloat;
 
         public override void AddToSettingsHash(ref int settingsHash)
         {
