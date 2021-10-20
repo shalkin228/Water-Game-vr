@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a5df2202a8b96488c744be3bd0c33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Timeout: 10
+  m_Timeout: 5
   m_XRRig: {fileID: 1361350137}
 --- !u!114 &158564759
 MonoBehaviour:
@@ -2045,7 +2045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sharedProfile: {fileID: 11400000, guid: 60a6e276a1d42894396c7dbf3c991d76, type: 2}
-  isGlobal: 1
+  isGlobal: 0
   blendDistance: -2.45
   weight: 1
   priority: 1
@@ -2145,7 +2145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftHand: {fileID: 622300816}
   _rightHand: {fileID: 1680220920}
-  _speedDelitel: 20
+  _speedDelitel: 30
 --- !u!143 &1361350141
 CharacterController:
   m_ObjectHideFlags: 0
