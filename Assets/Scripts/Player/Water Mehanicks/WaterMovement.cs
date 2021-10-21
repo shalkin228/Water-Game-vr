@@ -20,23 +20,25 @@ public class WaterMovement : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
 
         _leftHand.uiPressAction.action.performed += ctx => _isLeftMove = true;
-        _leftHand.uiPressAction.action.canceled += ctx => _isLeftMove = false;
+        _leftHand.uiPressAction.action.canceled += ctx =>
+        StartCoroutine(StopMove(false)); 
 
         _rightHand.uiPressAction.action.performed += ctx => _isRightMove = true;
-        _rightHand.uiPressAction.action.canceled += ctx => _isRightMove = false;
+        _rightHand.uiPressAction.action.canceled += ctx => 
+        StartCoroutine(StopMove(true));
     }
 
     private void Update()
     {
-        if(OceanRenderer.Instance.ViewerHeightAboveWater < 0 && !_isUnderWater)
+        if(OceanRenderer.Instance.ViewerHeightAboveWater < -0.2f && !_isUnderWater)
         {
-            _moveProvider.useGravity = false;
+            _isUnderWater = true;
         }
-        else if (OceanRenderer.Instance.ViewerHeightAboveWater > 0.1f && _isUnderWater)
+        else if (OceanRenderer.Instance.ViewerHeightAboveWater > 0.2f && _isUnderWater)
         {
-            _moveProvider.useGravity = true;
+            _isUnderWater = false;
         }
-        _isUnderWater = OceanRenderer.Instance.ViewerHeightAboveWater < 0f;
+        _moveProvider.useGravity = !_isUnderWater;
 
         if (_isLeftMove && _isUnderWater)
         {
@@ -51,5 +53,29 @@ public class WaterMovement : MonoBehaviour
     private void HandMove(Vector3 handForward)
     {
         _characterController.Move(handForward / _speedDelitel);
+    }
+
+    private IEnumerator StopMove(bool isRightHand)
+    {
+        if (isRightHand)
+        {
+            _isRightMove = false;
+        }
+        else
+        {
+            _isLeftMove = false;
+        }
+
+        if (_isRightMove || _isLeftMove)
+            yield break;
+
+        while (_characterController.velocity.x == 0 && _characterController.velocity.y == 0 &&
+            _characterController.velocity.z == 0 || _isRightMove || _isLeftMove)
+        {
+            _characterController.Move(new Vector3(
+                _characterController.velocity.x - Time.deltaTime / 10,
+                _characterController.velocity.y - Time.deltaTime / 10,
+                _characterController.velocity.z - Time.deltaTime / 10));
+        }
     }
 }
