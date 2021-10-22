@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e5365841cb1f8bc42a6fdbf574f0c32f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.40652782, g: 0.59053, b: 0.9443165, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -181,7 +181,7 @@ MonoBehaviour:
   _simSettingsFlow: {fileID: 0}
   _createShadowData: 0
   _simSettingsShadow: {fileID: 0}
-  _createClipSurfaceData: 1
+  _createClipSurfaceData: 0
   _simSettingsClipSurface: {fileID: 11400000, guid: ab41fdd5f01fe924c9bc1ce08de6c80f, type: 2}
   _defaultClippingState: 1
   _showOceanProxyPlane: 0
@@ -1655,12 +1655,12 @@ MonoBehaviour:
   - 0.0026866386
   - 0.0023564086
   - 0.0014559508
-  - 0.0024279898
+  - 0.0024279896
   - 0.004967745
   - 0.003336223
-  - 0.0055202707
-  - 0.0018379635
-  - 0.0041168663
+  - 0.00552027
+  - 0.0018379632
+  - 0.004116866
   - 0.0024059056
   - 0.001235758
   - 0.005910389
@@ -1669,14 +1669,14 @@ MonoBehaviour:
   - 0.005232792
   - 0.008436319
   - 0.009019355
-  - 0.007515098
-  - 0.008706974
+  - 0.0075150975
+  - 0.008706973
   - 0.0014783406
-  - 0.007452548
-  - 0.015488724
-  - 0.003713118
-  - 0.006337681
-  - 0.00057581515
+  - 0.0074525476
+  - 0.015488722
+  - 0.0037131174
+  - 0.00633768
+  - 0.0005758151
   - 0.0025509098
   - 0.011653549
   - 0.023276083
@@ -1685,14 +1685,14 @@ MonoBehaviour:
   - 0.010185642
   - 0.011291061
   - 0.035223298
-  - 0.04219544
+  - 0.042195436
   - 0.017834548
   - 0.048583712
-  - 0.050192
-  - 0.030294862
+  - 0.050191995
+  - 0.03029486
   - 0.019640068
-  - 0.030580608
-  - 0.008441813
+  - 0.030580604
+  - 0.008441812
   - 0.018381188
   - 0.06864435
   - 0.023404129
@@ -1701,14 +1701,14 @@ MonoBehaviour:
   - 0.05541862
   - 0.06616205
   - 0.069169566
-  - 0.11617305
-  - 0.06299375
+  - 0.116173044
+  - 0.06299374
   - 0.038305182
-  - 0.025259346
-  - 0.024445947
+  - 0.02525934
+  - 0.024445945
   - 0.011017555
   - 0.009091718
-  - 0.001282922
+  - 0.0012829219
   - 0.00016421522
   - 0.0014556842
   - 0.000019636318
@@ -1717,12 +1717,12 @@ MonoBehaviour:
   - 0.0000035886058
   - 0.000000025680785
   - 0.000000024191973
-  - 6.7801625e-10
-  - 2.0444241e-10
+  - 6.780162e-10
+  - 2.0444238e-10
   - 3.735899e-12
   - 1.5164874e-15
-  - 4.8708464e-17
-  - 8.431024e-20
+  - 4.8708458e-17
+  - 8.4310197e-20
   - 4.0078781e-22
   - 0
   - 0
@@ -2108,7 +2108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361350136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2076.6099, y: 12.9, z: 1808}
+  m_LocalPosition: {x: 2076.6099, y: 13.546, z: 1808}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 545798711}
