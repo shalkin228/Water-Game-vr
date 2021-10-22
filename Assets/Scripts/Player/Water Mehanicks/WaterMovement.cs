@@ -7,25 +7,23 @@ using Crest;
 
 public class WaterMovement : MonoBehaviour
 {
-    [SerializeField] private ActionBasedController _leftHand, _rightHand;
-    [SerializeField] private float _gliderDivider, _normalSpeedDivider;
+    [SerializeField] private InputActionProperty _leftHand, _rightHand;
+    [SerializeField] private Transform _leftHandTransform, _rightHandTransform;
+    [SerializeField] private float _gliderSpeed, _normalSpeed;
     private CharacterController _characterController;
     private ActionBasedContinuousMoveProvider _moveProvider;
     private bool _isLeftMove, _isRightMove, _isUnderWater;
+    private float _standartMoveSpeedOnGround;
 
     private void OnEnable()
     {
         _moveProvider = GetComponentInChildren<ActionBasedContinuousMoveProvider>();
+        _standartMoveSpeedOnGround = _moveProvider.moveSpeed;
 
         _characterController = GetComponent<CharacterController>();
 
-        _leftHand.uiPressAction.action.performed += ctx => _isLeftMove = true;
-        //_leftHand.uiPressAction.action.canceled += ctx =>
-        //StartCoroutine(StopMove(false)); 
-
-        _rightHand.uiPressAction.action.performed += ctx => _isRightMove = true;
-        //_rightHand.uiPressAction.action.canceled += ctx => 
-        //StartCoroutine(StopMove(true));
+        _leftHand.action.performed += ctx => HandMove(_leftHandTransform.forward, _leftHandTransform.right,
+            ctx.ReadValue<Vector2>());
     }
 
     private void Update()
@@ -33,28 +31,35 @@ public class WaterMovement : MonoBehaviour
         if(OceanRenderer.Instance.ViewerHeightAboveWater < -0.2f && !_isUnderWater)
         {
             _isUnderWater = true;
-            _moveProvider.forwardSource = Camera.main.transform;
+            _moveProvider.moveSpeed = 0;
+            _moveProvider.useGravity = false;
         }
         else if (OceanRenderer.Instance.ViewerHeightAboveWater > 0.2f && _isUnderWater)
         {
             _isUnderWater = false;
-            _moveProvider.forwardSource = null;
+            _moveProvider.moveSpeed = _standartMoveSpeedOnGround;
+            _moveProvider.useGravity = true;
         }
         _moveProvider.useGravity = !_isUnderWater;
 
         if (_isLeftMove && _isUnderWater)
         {
-            HandMove(_leftHand.transform.forward);
+            // HandMove(_leftHand.transform.forward);
         }
         if (_isRightMove && _isUnderWater)
         {
-            HandMove(_rightHand.transform.forward);
+            //HandMove(_rightHand.transform.forward);
         }
     }
 
-    private void HandMove(Vector3 handForward)
+    private void HandMove(Vector3 handForward, Vector3 handRight, Vector2 input)
     {
-        _characterController.Move(handForward / _gliderDivider);
+        if (!_isUnderWater)
+            return;
+
+        print(input);
+        input = input * _normalSpeed;
+        _characterController.Move(handForward * input.y + handRight * input.x);
     }
 
     private IEnumerator StopMove(bool isRightHand)

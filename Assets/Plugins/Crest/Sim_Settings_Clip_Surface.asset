@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sim_Settings_Clip_Surface
   m_EditorClassIdentifier: 
   _version: 0
-  _renderTextureGraphicsFormat: 32
+  _renderTextureGraphicsFormat: 31
