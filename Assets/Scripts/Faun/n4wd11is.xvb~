@@ -9,8 +9,7 @@ public class FaunWaterMovingBase : MonoBehaviour
     [Header("Faun Base")]
     [SerializeField] private float _movingSpeed, _goingMinTime, _goingMaxTime, _rotationSpeed, 
         _minWaterDistance, _minGroundDistance;
-    [SerializeField] private Vector3 _rightRotation, _leftRotation, _upRotation, _downRotation, _forwardRotation
-        , _backRotation;
+    [SerializeField] private Vector3 _rightRotation, _leftRotation, _upRotation, _downRotation, _forwardRotation;
     private Direction _curDir;
     private float _groundHeightToEntity;
     private Rigidbody _rigidbody;
@@ -36,19 +35,6 @@ public class FaunWaterMovingBase : MonoBehaviour
         }
 
         var oceanHeight = OceanRenderer.Instance.SeaLevel;
-        var oceanHeightDistance = Vector3.Distance
-            (transform.position, new Vector3(transform.position.x, oceanHeight, transform.position.z));
-
-        if(_groundHeightToEntity < _minGroundDistance)
-        {
-            _curDir = Direction.Up;
-            StartCoroutine(RotateToPathPoint(_upRotation, Direction.Up));
-        }
-        else if (oceanHeightDistance < _minWaterDistance)
-        {
-            _curDir = Direction.Down;
-            StartCoroutine(RotateToPathPoint(_downRotation, Direction.Down));
-        }
     }
 
     protected virtual void FixedUpdate()
@@ -58,7 +44,7 @@ public class FaunWaterMovingBase : MonoBehaviour
 
     protected virtual void FindPath()
     {
-        _curDir = (Direction)Random.RandomRange(0, 4);
+        _curDir = (Direction)Random.RandomRange(0, 3);
         switch (_curDir)
         {
             case Direction.Up:
@@ -75,10 +61,7 @@ public class FaunWaterMovingBase : MonoBehaviour
                 break;
             case Direction.Forward:
                 StartCoroutine(RotateToPathPoint(_forwardRotation, _curDir));
-                break;
-            case Direction.Back:
-                StartCoroutine(RotateToPathPoint(_backRotation, _curDir));
-                break;
+
             default:
                 break;
         }
@@ -93,6 +76,7 @@ public class FaunWaterMovingBase : MonoBehaviour
 
     protected virtual IEnumerator RotateToPathPoint(Vector3 direction, Direction dir)
     {
+        print(direction);
         while(_curDir == dir)
         {
             transform.rotation =  Quaternion.Slerp(transform.rotation, Quaternion.Euler(direction), 
@@ -101,14 +85,5 @@ public class FaunWaterMovingBase : MonoBehaviour
             yield return null;
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.TryGetComponent<Terrain>(out Terrain terrain))
-        {
-            _curDir = Direction.Back;
-            StartCoroutine(RotateToPathPoint(_backRotation, _curDir));
-        }
-    }
 }
-public enum Direction { Up, Down, Right, Left, Forward, Back}
+public enum Direction { Up, Down, Right, Left, Forward}
