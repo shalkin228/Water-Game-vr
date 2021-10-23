@@ -6,18 +6,18 @@ using Crest;
 public class FaunWaterMovingBase : MonoBehaviour
 {
     [Header("Faun Base")]
-    [SerializeField] private float _movingSpeed, _goingMinTime, _goingMaxTime, _rotationSpeed;
+    [SerializeField] private float _movingSpeed, _goingMinTime, _goingMaxTime, _rotationSpeed, 
+        _minWaterDistance, _minGroundDistance;
+    [SerializeField] private Quaternion _rightRotation, _leftRotation, _upRotation, _downRotation;
     private float _groundHeightToEntity;
-    private Vector3 _velocity;
-    private bool _pathFinded, _canUpdatePos;
+    private bool _pathFinded;
     private Path _currentPath;
+    private Rigidbody _rigidbody;
     
 
     protected virtual void Start()
     {
-        FindPath();
-
-        _canUpdatePos = true;
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     protected virtual void Update()
@@ -32,62 +32,23 @@ public class FaunWaterMovingBase : MonoBehaviour
             }
         }
 
-        FindPath();
-    }
-    protected virtual void LateUpdate()
-    {
-        UpdatePos();
+        var oceanHeight = OceanRenderer.Instance.SeaLevel;
+
     }
 
-    protected virtual void FindPath()
+
+
+    protected virtual IEnumerator RotateToPathPoint(Quaternion direction)
     {
-        if (_pathFinded)
-            return;
-
-        var dir = Random.rotation;
-        float goingTime = Random.Range(_goingMinTime, _goingMaxTime);
-        _currentPath = new Path(dir, goingTime);
-
-        StartCoroutine(RotateToPathPoint());
-
-        _pathFinded = true;
-    }
-
-    protected virtual IEnumerator RotateToPathPoint()
-    {
-        _canUpdatePos = false;
-        while(transform.rotation != _currentPath.direction)
+        while(transform.rotation.x >= direction.x &&
+            transform.rotation.y >= direction.y &&
+            transform.rotation.z >= direction.z)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, _currentPath.direction, 
+            transform.rotation = Quaternion.Lerp(transform.rotation, direction, 
                 Time.deltaTime * _rotationSpeed);
 
             yield return null;
         }
-        _canUpdatePos = true;
-    }
-
-    protected virtual IEnumerator GoingTimer(float time)
-    {
-        _velocity = transform.forward * _movingSpeed;
-
-        yield return new WaitForSeconds(time);
-
-        _pathFinded = false;
-    }
-
-    protected virtual void UpdatePos()
-    {
-        if (!_canUpdatePos)
-            return;
-
-        var move = _velocity * Time.deltaTime * _movingSpeed;
-        move = new Vector3(Mathf.Max(move.x * _movingSpeed, 0), Mathf.Max(move.y * _movingSpeed, 0),
-            Mathf.Max(move.z * _movingSpeed, 0));
-
-        transform.Translate(move);
-
-        _velocity = new Vector3(Mathf.Max(_velocity.x - Time.deltaTime, 0), Mathf.Max(_velocity.y - Time.deltaTime, 0),
-            Mathf.Max(_velocity.z - Time.deltaTime, 0));
     }
 }
 [System.Serializable]
