@@ -131,7 +131,6 @@ public class FaunWaterMovingBase : MonoBehaviour
     {
         if (collision.collider.TryGetComponent<Terrain>(out Terrain terrain))
         {
-            print(1);
             _curDir = Direction.Back;
             StartCoroutine(RotateToPathPoint(_backRotation, _curDir));
         }
