@@ -67,7 +67,6 @@ public class HandInteractor : MonoBehaviour
         }
         if(interactionItem == null)
         {
-            print(2);
             return;
         }
 
