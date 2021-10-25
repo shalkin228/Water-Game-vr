@@ -90,7 +90,7 @@ Material:
     - _CausticsDistortionScale: 10
     - _CausticsDistortionStrength: 0.075
     - _CausticsFocalDepth: 0
-    - _CausticsStrength: 8.21
+    - _CausticsStrength: 1.03
     - _CausticsTextureAverage: 0.07
     - _CausticsTextureScale: 25
     - _ClipSurface: 1
