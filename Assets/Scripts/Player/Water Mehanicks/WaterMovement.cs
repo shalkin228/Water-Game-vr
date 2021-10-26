@@ -59,7 +59,6 @@ public class WaterMovement : MonoBehaviour
         if (!_isUnderWater)
             return;
 
-        print(input);
         input = input * _normalSpeed;
         _characterController.Move(handForward * input.y + handRight * input.x);
     }

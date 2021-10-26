@@ -8,19 +8,25 @@ public class MultiTool : InteractionItem
     [SerializeField] private InputActionReference _rightHandAction, _leftHandAction;
     [SerializeField] private Transform _itemSocket, _sphere;
     [SerializeField] private float _maxDistance, _hitCooldown, _maxRotationSpeed;
+    private Animator _animator;
     
 
     private void OnEnable()
     {
+        _animator = GetComponent<Animator>();
+
         _rightHandAction.action.performed += ctx => HitItem(ControllerType.Right);
         _leftHandAction.action.performed += ctx => HitItem(ControllerType.Left);
+        _rightHandAction.action.canceled += ctx => StopHit();
+        _leftHandAction.action.canceled += ctx => StopHit();
     }
 
     private void HitItem(ControllerType type)
      {
-        if (transform.parent == null)
-            return;
         if (transform.parent.parent.GetComponent<HandInteractor>().controllerType != type)
+            return;
+
+        if (transform.parent == null)
             return;
 
         RaycastHit[] raycastHits = Physics.RaycastAll(_itemSocket.position, _itemSocket.forward);
@@ -45,7 +51,7 @@ public class MultiTool : InteractionItem
         {
             resource.Damage(1);
 
-            print(resource._curHp);
+            _animator.SetTrigger("Take");
 
             yield return new WaitForSeconds(_hitCooldown);
         }

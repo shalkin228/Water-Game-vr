@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using Crest;
+
+public class OceanHeightShower : MonoBehaviour, UIShow
+{
+    private TextMeshProUGUI _text;
+
+    private void Start()
+    {
+        _text = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
+    private void Update()
+    {
+        int depth = (int)Mathf.Min(Camera.main.transform.position.y - OceanRenderer.Instance.SeaLevel, 0);
+        _text.text = "Depth: " + Mathf.Abs(depth);
+    }
+
+    public void ActivateUI()
+    {
+        print("ACTIVATED");
+    }
+}
