@@ -28,13 +28,15 @@ public class WaterMovement : MonoBehaviour
 
     private void Update()
     {
-        if(OceanRenderer.Instance.ViewerHeightAboveWater < -0.2f && !_isUnderWater)
+        float heightAboveWater = transform.position.y - OceanRenderer.Instance.SeaLevel;
+
+        if(heightAboveWater < -.5f && !_isUnderWater)
         {
             _isUnderWater = true;
             _moveProvider.moveSpeed = 0;
             _moveProvider.useGravity = false;
         }
-        else if (OceanRenderer.Instance.ViewerHeightAboveWater > 0.2f && _isUnderWater)
+        else if (heightAboveWater > -.5f && _isUnderWater)
         {
             _isUnderWater = false;
             _moveProvider.moveSpeed = _standartMoveSpeedOnGround;
