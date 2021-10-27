@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 5d06320363d66914381800db1bf9fd0b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - krown oblique
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: c0c6279195be0604894ce31f5d236b61, type: 3}
+  - {fileID: 12800000, guid: f4e35a43c365d7a459572b3a18eefd8f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

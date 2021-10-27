@@ -8,7 +8,7 @@ public class OceanHeightShower : MonoBehaviour, UIShow
 {
     [SerializeField] private float _uiActiveTime;
     private TextMeshProUGUI _text;
-    private bool _activated, _isDeactivating;
+    private bool _activated;
     private int _curWatching;
 
     private void Start()
