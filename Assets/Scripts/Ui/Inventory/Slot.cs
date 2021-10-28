@@ -19,6 +19,14 @@ public class Slot : InventoryElement
             slotSprite = value;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            print(1);
+        }
+    }
 }
 public enum SlotStorageObject
 {
