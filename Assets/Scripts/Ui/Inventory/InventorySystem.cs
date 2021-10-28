@@ -7,14 +7,19 @@ public class InventorySystem : MonoBehaviour, UIShow
 {
     [SerializeField] private float _uiActiveTime;
     [SerializeField] private Transform _inventoryPanel;
+    private static InventorySystem _instance;
     private bool _activated;
     private int _curWatching;
     private List<Slot> _slots = new List<Slot>();
     private List<InventoryElement> _elements = new List<InventoryElement>();
 
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     private void Start()
     {
-
         foreach(Transform child in transform)
         {
             if(child.TryGetComponent(out Slot slot))
@@ -57,6 +62,19 @@ public class InventorySystem : MonoBehaviour, UIShow
         foreach (InventoryElement element in _elements)
         {
             element.StartCoroutine(element.DeActivate());
+        }
+    }
+
+    public static void AddItem(SlotStorageObject storageObject, Sprite slotSprite)
+    {
+        foreach(Slot slot in _instance._slots)
+        {
+            if(slot.storage == SlotStorageObject.Empty)
+            {
+                slot.storage = storageObject;
+                slot.slotSprite = slotSprite;
+                break;
+            }
         }
     }
 

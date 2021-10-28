@@ -20,15 +20,21 @@ public class Slot : InventoryElement
         }
     }
 
+    [SerializeField] private Transform _holdPos;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            print(1);
+            if(storage == SlotStorageObject.Multitool)
+            {
+                var multiTool = Resources.Load<GameObject>("Multi Tool");
+                Instantiate(multiTool, _holdPos.position, Quaternion.identity);
+            }
         }
     }
 }
 public enum SlotStorageObject
 {
-    Empty, Multitool, Coral, Smazka, Processor, Kalii, Gold, Olov, Porcelain
+    Empty, Multitool, Coral, Smazka, Processor, Kalii, Gold, Olov, Pharfor
 }

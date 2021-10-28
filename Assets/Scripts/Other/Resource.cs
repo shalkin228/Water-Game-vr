@@ -6,6 +6,8 @@ public class Resource : MonoBehaviour
 {
     [HideInInspector] public int _curHp;
     [SerializeField] private int _maxHp;
+    [SerializeField] private Sprite _slotSprite;
+    [SerializeField] private SlotStorageObject _itemType;
 
     private void Start()
     {
@@ -24,5 +26,7 @@ public class Resource : MonoBehaviour
     public void Die()
     {
         gameObject.SetActive(false);
+
+        InventorySystem.AddItem(_itemType, _slotSprite);
     }
 }
