@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class InventoryElementText : InventoryElement
+public class InventoryElementText : UIElement
 {
     private TextMeshProUGUI _text;
 

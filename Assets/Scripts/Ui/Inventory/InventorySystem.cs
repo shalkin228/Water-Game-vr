@@ -7,11 +7,12 @@ public class InventorySystem : MonoBehaviour, UIShow
 {
     [SerializeField] private float _uiActiveTime;
     [SerializeField] private Transform _inventoryPanel;
+    [SerializeField] private Sprite _emptySlot;
     private static InventorySystem _instance;
     private bool _activated;
     private int _curWatching;
     private List<Slot> _slots = new List<Slot>();
-    private List<InventoryElement> _elements = new List<InventoryElement>();
+    private List<UIElement> _elements = new List<UIElement>();
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class InventorySystem : MonoBehaviour, UIShow
                 _slots.Add(slot);
             }
 
-            _elements.Add(child.GetComponent<InventoryElement>());
+            _elements.Add(child.GetComponent<UIElement>());
         }
     }
 
@@ -42,6 +43,9 @@ public class InventorySystem : MonoBehaviour, UIShow
             yield break;
         }
 
+        if (!_activated)
+            yield break;
+
         _activated = false;
 
         Deactivating();
@@ -51,7 +55,7 @@ public class InventorySystem : MonoBehaviour, UIShow
 
     private void Activating()
     {
-        foreach(InventoryElement element in _elements)
+        foreach(UIElement element in _elements)
         {
             element.StartCoroutine(element.Activate());
         }
@@ -59,7 +63,7 @@ public class InventorySystem : MonoBehaviour, UIShow
 
     private void Deactivating()
     {
-        foreach (InventoryElement element in _elements)
+        foreach (UIElement element in _elements)
         {
             element.StartCoroutine(element.DeActivate());
         }
@@ -76,6 +80,51 @@ public class InventorySystem : MonoBehaviour, UIShow
                 break;
             }
         }
+    }
+
+    public static bool IsItemExist(SlotStorageObject[] existObjects)
+    {
+        int currentIteration = 0;
+        foreach(SlotStorageObject existObject in existObjects)
+        {
+            foreach(Slot slot in _instance._slots)
+            {
+                if(slot.storage == existObject)
+                {
+                    existObjects[currentIteration] = SlotStorageObject.Empty;
+                    break;
+                }
+            }
+            currentIteration++;
+        }
+
+        foreach(SlotStorageObject existObject in existObjects)
+        {
+            if (!(existObject == SlotStorageObject.Empty))
+            {
+                print(1);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static bool RemoveObject(SlotStorageObject[] removingObjects)
+    {
+
+        foreach(SlotStorageObject removingObject in removingObjects)
+        {
+            foreach (Slot slot in _instance._slots)
+            {
+                if(slot.storage == removingObject)
+                {
+                    slot.storage = SlotStorageObject.Empty;
+                    slot.slotSprite = _instance._emptySlot;
+                }
+            }
+        }
+
+        return true;
     }
 
     public void ActivateUI()

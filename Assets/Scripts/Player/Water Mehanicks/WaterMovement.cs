@@ -7,12 +7,14 @@ using Crest;
 
 public class WaterMovement : MonoBehaviour
 {
+    public bool isUnderWater, canChangeGravity = true;
+
     [SerializeField] private InputActionProperty _leftHand, _rightHand;
     [SerializeField] private Transform _leftHandTransform, _rightHandTransform;
     [SerializeField] private float _gliderSpeed, _normalSpeed;
     private CharacterController _characterController;
     private ActionBasedContinuousMoveProvider _moveProvider;
-    private bool _isLeftMove, _isRightMove, _isUnderWater;
+    private bool _isLeftMove, _isRightMove;
     private float _standartMoveSpeedOnGround;
 
     private void OnEnable()
@@ -28,27 +30,18 @@ public class WaterMovement : MonoBehaviour
 
     private void Update()
     {
-        float heightAboveWater = transform.position.y - OceanRenderer.Instance.SeaLevel;
+        UpdateUndewater();
 
-        if(heightAboveWater < -.5f && !_isUnderWater)
+        if (canChangeGravity)
         {
-            _isUnderWater = true;
-            _moveProvider.moveSpeed = 0;
-            _moveProvider.useGravity = false;
+            _moveProvider.useGravity = !isUnderWater;
         }
-        else if (heightAboveWater > -.5f && _isUnderWater)
-        {
-            _isUnderWater = false;
-            _moveProvider.moveSpeed = _standartMoveSpeedOnGround;
-            _moveProvider.useGravity = true;
-        }
-        _moveProvider.useGravity = !_isUnderWater;
 
-        if (_isLeftMove && _isUnderWater)
+        if (_isLeftMove && isUnderWater)
         {
             // HandMove(_leftHand.transform.forward);
         }
-        if (_isRightMove && _isUnderWater)
+        if (_isRightMove && isUnderWater)
         {
             //HandMove(_rightHand.transform.forward);
         }
@@ -56,7 +49,7 @@ public class WaterMovement : MonoBehaviour
 
     private void HandMove(Vector3 handForward, Vector3 handRight, Vector2 input)
     {
-        if (!_isUnderWater)
+        if (!isUnderWater)
             return;
 
         input = input * _normalSpeed;
@@ -84,6 +77,30 @@ public class WaterMovement : MonoBehaviour
                 _characterController.velocity.x - Time.deltaTime / 10,
                 _characterController.velocity.y - Time.deltaTime / 10,
                 _characterController.velocity.z - Time.deltaTime / 10));
+        }
+    }
+
+    public void UpdateUndewater()
+    {
+        float heightAboveWater = transform.position.y - OceanRenderer.Instance.SeaLevel;
+
+        if (heightAboveWater < -.5f && !isUnderWater)
+        {
+            isUnderWater = true;
+            if (canChangeGravity)
+            {
+                _moveProvider.moveSpeed = 0;
+                _moveProvider.useGravity = false;
+            }
+        }
+        else if (heightAboveWater > -.5f && isUnderWater)
+        {
+            isUnderWater = false;
+            if (canChangeGravity)
+            {
+                _moveProvider.moveSpeed = _standartMoveSpeedOnGround;
+                _moveProvider.useGravity = true;
+            }
         }
     }
 }

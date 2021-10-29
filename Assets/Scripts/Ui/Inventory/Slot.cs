@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Slot : InventoryElement
+public class Slot : UIElement
 {
     public SlotStorageObject storage;
     public Sprite slotSprite
