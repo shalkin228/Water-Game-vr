@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
-public class InventorySystem : MonoBehaviour, UIShow
+public class InventorySystem : MonoBehaviour
 {
     [SerializeField] private float _uiActiveTime;
     [SerializeField] private Transform _inventoryPanel;
     [SerializeField] private Sprite _emptySlot;
+    [SerializeField] private InputActionReference _openInventoryAction;
     private static InventorySystem _instance;
     private bool _activated;
     private int _curWatching;
@@ -17,6 +19,11 @@ public class InventorySystem : MonoBehaviour, UIShow
     private void Awake()
     {
         _instance = this;
+    }
+
+    private void OnEnable()
+    {
+        _openInventoryAction.action.performed += ctx => ActivateUI();
     }
 
     private void Start()
@@ -37,14 +44,6 @@ public class InventorySystem : MonoBehaviour, UIShow
         var oldWatching = _curWatching;
 
         yield return new WaitForSeconds(_uiActiveTime);
-
-        if (_curWatching != oldWatching)
-        {
-            yield break;
-        }
-
-        if (!_activated)
-            yield break;
 
         _activated = false;
 
@@ -129,12 +128,6 @@ public class InventorySystem : MonoBehaviour, UIShow
 
     public void ActivateUI()
     {
-        _curWatching++;
-        if (_curWatching < 10)
-        {
-            return;
-        }
-
         StartCoroutine(ActiveTimer());
 
         if (_activated)
