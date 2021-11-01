@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class Slot : UIElement
 {
+    private Sprite _slotSprite;
+
     public SlotStorageObject storage;
     public Sprite slotSprite
     {
         get
         {
-            return slotSprite;
+            return _slotSprite;
         }
         set
         {
-            _image.sprite = value;
+            _slotSprite = value;
 
-            slotSprite = value;
+            _image.sprite = _slotSprite;
         }
     }
 
@@ -26,7 +28,7 @@ public class Slot : UIElement
     {
         if (other.gameObject.tag == "Player")
         {
-            if(storage == SlotStorageObject.Multitool)
+            if(storage == SlotStorageObject.Multitool && isActive)
             {
                 var multiTool = Resources.Load<GameObject>("Multi Tool");
                 Instantiate(multiTool, _holdPos.position, Quaternion.identity);

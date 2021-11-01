@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class InventorySystem : MonoBehaviour
     private void OnEnable()
     {
         _openInventoryAction.action.performed += ctx => ActivateUI();
+
+        /*AddItem(SlotStorageObject.Gold, _emptySlot);
+        SlotStorageObject[] storage = { SlotStorageObject.Gold };
+        RemoveObject(storage);*/
     }
 
     private void Start()
@@ -83,35 +88,36 @@ public class InventorySystem : MonoBehaviour
 
     public static bool IsItemExist(SlotStorageObject[] existObjects)
     {
-        int currentIteration = 0;
-        foreach(SlotStorageObject existObject in existObjects)
+        int existObjectsNum = 0;
+
+        foreach (Slot slot in _instance._slots)
         {
-            foreach(Slot slot in _instance._slots)
+            foreach(SlotStorageObject existObject in existObjects)
             {
-                if(slot.storage == existObject)
+                if (existObject == slot.storage)
                 {
-                    existObjects[currentIteration] = SlotStorageObject.Empty;
+                    existObjectsNum++;
                     break;
                 }
             }
-            currentIteration++;
         }
 
-        foreach(SlotStorageObject existObject in existObjects)
-        {
-            if (!(existObject == SlotStorageObject.Empty))
-            {
-                print(1);
-                return false;
-            }
-        }
+        if (existObjectsNum < existObjects.Length)
+            return false;
+
         return true;
     }
 
     public static bool RemoveObject(SlotStorageObject[] removingObjects)
     {
+        var removingObjectReference = removingObjects;
 
-        foreach(SlotStorageObject removingObject in removingObjects)
+        if (!IsItemExist(removingObjects))
+        {
+            return false;
+        }
+
+        foreach (SlotStorageObject removingObject in removingObjectReference)
         {
             foreach (Slot slot in _instance._slots)
             {

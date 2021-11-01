@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine.UI;
 public class UIElement : MonoBehaviour
 {
     public bool isActive;
-
     protected Image _image;
 
     protected virtual void Start()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class CraftingSlot : UIElement
 {
     public SlotStorageObject storage;
     public Sprite itemSprite;
+    public bool isInteractable;
 
     [SerializeField] private SlotStorageObject[] _recipe;
     [SerializeField] private float _clickCooldown;
