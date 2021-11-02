@@ -7,28 +7,28 @@ using System;
 
 public class InventorySystem : MonoBehaviour
 {
-    [SerializeField] private float _uiActiveTime;
     [SerializeField] private Transform _inventoryPanel;
     [SerializeField] private Sprite _emptySlot;
     [SerializeField] private InputActionReference _openInventoryAction;
     private static InventorySystem _instance;
     private bool _activated;
-    private int _curWatching;
     private List<Slot> _slots = new List<Slot>();
-    private List<UIElement> _elements = new List<UIElement>();
+    private float _openedScaleY;
 
     private void Awake()
     {
         _instance = this;
+        _openedScaleY = transform.localScale.y;
+
+        transform.localScale = new Vector3(transform.localScale.x,
+            0, transform.localScale.z);
+        print(_openedScaleY);
     }
 
     private void OnEnable()
     {
-        _openInventoryAction.action.performed += ctx => ActivateUI();
-
-        /*AddItem(SlotStorageObject.Gold, _emptySlot);
-        SlotStorageObject[] storage = { SlotStorageObject.Gold };
-        RemoveObject(storage);*/
+        _openInventoryAction.action.performed += ctx => StartCoroutine(ActivateUI());
+        _openInventoryAction.action.canceled += ctx => StartCoroutine(DeActivateUI());
     }
 
     private void Start()
@@ -39,37 +39,6 @@ public class InventorySystem : MonoBehaviour
             {
                 _slots.Add(slot);
             }
-
-            _elements.Add(child.GetComponent<UIElement>());
-        }
-    }
-
-    private IEnumerator ActiveTimer()
-    {
-        var oldWatching = _curWatching;
-
-        yield return new WaitForSeconds(_uiActiveTime);
-
-        _activated = false;
-
-        Deactivating();
-
-        _curWatching = 0;
-    }
-
-    private void Activating()
-    {
-        foreach(UIElement element in _elements)
-        {
-            element.StartCoroutine(element.Activate());
-        }
-    }
-
-    private void Deactivating()
-    {
-        foreach (UIElement element in _elements)
-        {
-            element.StartCoroutine(element.DeActivate());
         }
     }
 
@@ -132,15 +101,35 @@ public class InventorySystem : MonoBehaviour
         return true;
     }
 
-    public void ActivateUI()
+    public IEnumerator ActivateUI()
     {
-        StartCoroutine(ActiveTimer());
-
-        if (_activated)
-            return;
-
         _activated = true;
 
-        Activating();
+        while (_activated)
+        {
+            var scaleY = transform.localScale.y;
+            scaleY = Mathf.Lerp(scaleY, _openedScaleY, Time.deltaTime * 12);
+
+            transform.localScale = new Vector3(transform.localScale.x,
+    scaleY, transform.localScale.z);
+
+            yield return null;
+        }
+    }
+
+    public IEnumerator DeActivateUI()
+    {
+        _activated = false;
+
+        while (!_activated)
+        {
+            var scaleY = transform.localScale.y;
+            scaleY = Mathf.Lerp(scaleY, 0, Time.deltaTime * 12);
+
+            transform.localScale = new Vector3(transform.localScale.x,
+    scaleY, transform.localScale.z);
+
+            yield return null;
+        }
     }
 }
