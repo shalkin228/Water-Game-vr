@@ -42,7 +42,7 @@ public class WaterMovement : MonoBehaviour
         if(isUnderWater && _input.x != 0 && _input.y != 0)
         {
             _characterController.Move
-                ((_leftHandTransform.forward * _input.y + _leftHandTransform.forward * _input.x) * _normalSpeed);
+                ((_leftHandTransform.forward * _input.y + _leftHandTransform.right * _input.x) * _normalSpeed);
         }
     }
 
