@@ -14,7 +14,7 @@ public class WaterMovement : MonoBehaviour
     [SerializeField] private float _gliderSpeed, _normalSpeed;
     private CharacterController _characterController;
     private ActionBasedContinuousMoveProvider _moveProvider;
-    private bool _isLeftMove, _isRightMove;
+    private Vector2 _input;
     private float _standartMoveSpeedOnGround;
 
     private void OnEnable()
@@ -24,8 +24,7 @@ public class WaterMovement : MonoBehaviour
 
         _characterController = GetComponent<CharacterController>();
 
-        _leftHand.action.performed += ctx => HandMove(_leftHandTransform.forward, _leftHandTransform.right,
-            ctx.ReadValue<Vector2>());
+        _leftHand.action.performed += ctx => _input = ctx.ReadValue<Vector2>();
     }
 
     private void Update()
@@ -36,48 +35,20 @@ public class WaterMovement : MonoBehaviour
         {
             _moveProvider.useGravity = !isUnderWater;
         }
+    }
 
-        if (_isLeftMove && isUnderWater)
+    private void FixedUpdate()
+    {
+        if(isUnderWater && _input.x != 0 && _input.y != 0)
         {
-            // HandMove(_leftHand.transform.forward);
-        }
-        if (_isRightMove && isUnderWater)
-        {
-            //HandMove(_rightHand.transform.forward);
+            _characterController.Move
+                ((_leftHandTransform.forward * _input.y + _leftHandTransform.forward * _input.x) * _normalSpeed);
         }
     }
 
-    private void HandMove(Vector3 handForward, Vector3 handRight, Vector2 input)
+    private void HandMove(Vector2 input)
     {
-        if (!isUnderWater)
-            return;
-
-        input = input * _normalSpeed;
-        _characterController.Move(handForward * input.y + handRight * input.x);
-    }
-
-    private IEnumerator StopMove(bool isRightHand)
-    {
-        if (isRightHand)
-        {
-            _isRightMove = false;
-        }
-        else
-        {
-            _isLeftMove = false;
-        }
-
-        if (_isRightMove || _isLeftMove)
-            yield break;
-
-        while (_characterController.velocity.x == 0 && _characterController.velocity.y == 0 &&
-            _characterController.velocity.z == 0 || _isRightMove || _isLeftMove)
-        {
-            _characterController.Move(new Vector3(
-                _characterController.velocity.x - Time.deltaTime / 10,
-                _characterController.velocity.y - Time.deltaTime / 10,
-                _characterController.velocity.z - Time.deltaTime / 10));
-        }
+        _input = input;
     }
 
     public void UpdateUndewater()
