@@ -22,7 +22,6 @@ public class InventorySystem : MonoBehaviour
 
         transform.localScale = new Vector3(transform.localScale.x,
             0, transform.localScale.z);
-        print(_openedScaleY);
     }
 
     private void OnEnable()
