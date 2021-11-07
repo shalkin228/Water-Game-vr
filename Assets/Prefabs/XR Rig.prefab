@@ -622,7 +622,6 @@ Transform:
   m_Children:
   - {fileID: 1912817339944417477}
   - {fileID: 1912817339521532774}
-  - {fileID: 1912817338408886054}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1513,66 +1512,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.020748897
   m_Center: {x: -1.0620754e-10, y: 8.7407206e-11, z: -0.0014973916}
---- !u!1 &1912817338408886049
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1912817338408886054}
-  - component: {fileID: 1912817338408886052}
-  - component: {fileID: 1912817338408886055}
-  m_Layer: 0
-  m_Name: BoardCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1912817338408886054
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1912817338408886049}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.969, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1912817338042060552}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1912817338408886052
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1912817338408886049}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.19457893, z: 0.1}
-  m_Center: {x: 0, y: -0.04728947, z: 0}
---- !u!114 &1912817338408886055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1912817338408886049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0ac84f133446024bbabce54a00646b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveProvider: {fileID: 1912817339521532773}
-  _char: {fileID: 1912817338042060559}
-  isOnBoard: 0
 --- !u!1 &1912817338498475935
 GameObject:
   m_ObjectHideFlags: 0
@@ -3418,6 +3357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a4135c1a64003408adc8d282797ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadingObjectsParent: {fileID: 0}
+  _maxRenderDistance: 0
 --- !u!1 &1912817339712828414
 GameObject:
   m_ObjectHideFlags: 0

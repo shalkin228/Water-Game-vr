@@ -8,7 +8,7 @@ public class UIActivator : MonoBehaviour
     {
         var camForward = new Ray(transform.position, transform.forward);
 
-        RaycastHit[] UIElements = Physics.RaycastAll(camForward);
+        RaycastHit[] UIElements = Physics.RaycastAll(camForward, 5);
         foreach(var UIElement in UIElements)
         {
             if(UIElement.collider.TryGetComponent(out UIShow element))
