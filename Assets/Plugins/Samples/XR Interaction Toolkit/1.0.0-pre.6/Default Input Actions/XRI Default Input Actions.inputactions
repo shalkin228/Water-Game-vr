@@ -487,7 +487,7 @@
                 {
                     "name": "",
                     "id": "f9ad7b89-63d4-4492-a18c-3321bd286778",
-                    "path": "<OculusTouchController>/secondaryButton",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -602,6 +602,14 @@
                     "type": "Value",
                     "id": "6f7cf253-7062-443b-b10f-2be48a33f027",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Ui Interact",
+                    "type": "Button",
+                    "id": "0c7d318b-96fd-4ff3-acf1-7b784b2a2688",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -914,6 +922,17 @@
                     "action": "Translate Anchor",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4b1a772e-28c2-4e3c-96ca-728fa6e6f8e8",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ui Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
