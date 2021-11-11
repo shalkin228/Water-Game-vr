@@ -612,6 +612,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Open Changer Menu",
+                    "type": "Button",
+                    "id": "b1db6eea-2ad8-4d51-a880-7978124c9e4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -931,6 +939,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Ui Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f839ad7c-b2cb-4d50-ad92-50b0f23108f2",
+                    "path": "<OculusTouchController>{RightHand}/thumbstickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Changer Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

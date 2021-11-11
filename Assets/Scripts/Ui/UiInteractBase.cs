@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+
 public class UiInteractBase : MonoBehaviour, UIShow
 {
     protected bool _isActive;
@@ -20,7 +20,7 @@ public class UiInteractBase : MonoBehaviour, UIShow
             0, _canvas.transform.localScale.z);
     }
 
-    private void LateUpdate()
+    protected virtual void LateUpdate()
     {
         if (_isActive)
         {
@@ -44,7 +44,7 @@ public class UiInteractBase : MonoBehaviour, UIShow
         _activating = ActivatingType.Activating;
     }
 
-    private IEnumerator ActivateUICorrutine()
+    protected IEnumerator ActivateUICorrutine()
     {
         while (_isActive)
         {
@@ -56,7 +56,7 @@ public class UiInteractBase : MonoBehaviour, UIShow
         }
     }
 
-    private IEnumerator DeActivateUI()
+    protected IEnumerator DeActivateUI()
     {
         _isActive = false;
         _activating = ActivatingType.DeActivating;
