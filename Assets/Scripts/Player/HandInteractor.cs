@@ -45,7 +45,7 @@ public class HandInteractor : MonoBehaviour
         if (interactionItem == null || interactionItem.transform.parent != null)
             return;
 
-        if (_animator != null)
+        if (_animator != null && interactionItem.itemType == InteractionItemType.MultiTool)
             _animator.SetBool("MultiTool", true);
 
         interactionItem.transform.position = _itemHoldPos.position;

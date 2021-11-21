@@ -9,7 +9,6 @@ public class MultiTool : InteractionItem
     [SerializeField] private Transform _itemSocket, _sphere;
     [SerializeField] private float _maxDistance, _hitCooldown, _maxRotationSpeed;
     private Animator _animator;
-    
 
     private void OnEnable()
     {

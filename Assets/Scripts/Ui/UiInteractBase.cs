@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UiInteractBase : MonoBehaviour, UIShow
 {
+    [SerializeField] protected float _deActivateSpeed, _activateSpeed;
     protected bool _isActive;
     protected ActivatingType _activating = ActivatingType.DeActivating;
     protected Canvas _canvas;
@@ -50,7 +51,7 @@ public class UiInteractBase : MonoBehaviour, UIShow
         {
             var currentScale = _canvas.transform.localScale;
             currentScale = Vector3.Lerp(currentScale, _normalScale,
-                Time.deltaTime * 12);
+                Time.deltaTime * _activateSpeed);
             _canvas.transform.localScale = currentScale;
             yield return null;
         }
@@ -65,7 +66,7 @@ public class UiInteractBase : MonoBehaviour, UIShow
         {
             var currentScale = _canvas.transform.localScale;
             currentScale = Vector3.Lerp(currentScale, new Vector3(currentScale.x, 0, currentScale.y),
-                Time.deltaTime * 20);
+                Time.deltaTime * _deActivateSpeed);
             _canvas.transform.localScale = currentScale;
             yield return null;
         }

@@ -10,4 +10,7 @@ public interface UIShow
 {
     public void ActivateUI();
 }
-
+public interface IWeponChangable
+{
+    public void ChangeWeapon();
+}
